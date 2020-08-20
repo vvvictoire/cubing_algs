@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "/home/trucy/cubing_algs/bin/python3",
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django"
+    ],
+    "[python]": {
+    }
+}

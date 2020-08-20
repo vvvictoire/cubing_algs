@@ -1,0 +1,40 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <link rel="shortcut icon" type="image/png" href="{% static 'algs_site/favicon.ico' %}">
+    <title>Cubing algs</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'algs_site/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'algs_site/css/custom.css' %}">
+  </head>
+  <body class="text-center">
+  <nav class="site-header sticky-top py-1">
+    <div class="container d-flex flex-column flex-md-row justify-content-between">
+      <a class="py-2" href="{% url 'algs_site:puzzle_list' %}">
+          Cubing algs
+        <!--<img src="{% static 'algs_site/img/hard_drop_logo_slim.png' %}">-->
+      </a>
+      {# <a class="py-2 d-none d-md-inline-block" href="{% url 'algs_site:login' %}">Log in with WCA</a> #}
+      <a class="py-2 d-none d-md-inline-block" href="{% url 'algs_site:new_algorithm' %}">New algorithm</a>
+    </div>
+  </nav>
+
+  <br><br>
+
+  <main role="main" class="inner cover">
+    {% block content %}
+    {% endblock content %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      This site is in alpha stage. It'll get better with time.
+    </div>
+  </footer>
+</body>
+</html>

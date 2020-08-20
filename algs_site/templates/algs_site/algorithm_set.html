@@ -1,0 +1,11 @@
+{% extends "algs_site/base.html" %}
+{% block content %}
+
+{{algorithm_set_name}} set for {{puzzle_name}}<br>
+
+
+{% for algorithm in algorithms %}
+    {{algorithm.name}} {{algorithm.sequence}}<br>
+{% endfor %}
+
+{% endblock content %}
