@@ -13,16 +13,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'algs_site/css/custom.css' %}">
   </head>
   <body class="text-center">
-  <nav class="site-header sticky-top py-1">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2" href="{% url 'algs_site:puzzle_list' %}">
-          Cubing algs
-        <!--<img src="{% static 'algs_site/img/hard_drop_logo_slim.png' %}">-->
-      </a>
-      {# <a class="py-2 d-none d-md-inline-block" href="{% url 'algs_site:login' %}">Log in with WCA</a> #}
-      <a class="py-2 d-none d-md-inline-block" href="{% url 'algs_site:new_algorithm' %}">New algorithm</a>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'algs_site:puzzle_list' %}">Cubing algs</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          {# <a class="nav-link" href="{% url 'algs_site:login' %}">Log in with WCA</a>  #}
+          <a class="nav-link" href="{% url 'algs_site:new_algorithm' %}">New algorithm</a>
+        </div>
+      </div>
+    </nav>
 
   <br><br>
 

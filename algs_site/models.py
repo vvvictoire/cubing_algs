@@ -9,6 +9,7 @@ class Puzzle(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='images/puzzle/')
     alt_text = models.CharField(max_length=100)
+    comments = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 
@@ -18,6 +19,7 @@ class AlgorithmSet(models.Model):
     puzzle = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/algorithm_set')
     alt_text = models.CharField(max_length=100)
+    comments = models.CharField(max_length=200)
     def __str__(self):
         return self.puzzle.name + " " + self.name
 
@@ -28,5 +30,6 @@ class Algorithm(models.Model):
     algorithm_set = models.ForeignKey(AlgorithmSet, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/algorithm')
     alt_text = models.CharField(max_length=100)
+    comments = models.CharField(max_length=200)
     def __str__(self):
         return self.algorithm_set.puzzle.name + " " + self.algorithm_set.name + " " + self.name
