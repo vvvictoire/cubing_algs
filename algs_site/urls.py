@@ -8,13 +8,18 @@ from . import views
 
 app_name = 'algs_site'
 urlpatterns = [
-    # path('alg', views.index, name='index'),
+    # index
+    path('alg', views.index, name='index'),
+    # oauth
     path('oauth', views.oauth, name='oauth'),
-    path('', views.puzzle_list, name='puzzle_list'),
-    path('alg/<str:puzzle_name>/', views.algorithm_sets, name='algorithm_sets'),
+    # main page, list puzzles
+    path('', views.puzzle, name='puzzle'),
+    # alg sets for a given puzzle
+    path('alg/<str:puzzle_name>/', views.algorithm_set, name='algorithm_set'),
+    # algorithms for a give alg set
     path('alg/<str:puzzle_name>/<str:algorithm_set_name>',
-         views.algorithm_set,
-         name='algorithm_set'),
+         views.algorithm_list,
+         name='algorithm_list'),
     path('alg/<str:puzzle_name>/<str:algorithm_set_name>/<str:algorithm_name>',
          views.algorithm_set,
          name='algorithm'),

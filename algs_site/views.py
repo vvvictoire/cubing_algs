@@ -14,31 +14,31 @@ def index(request):
     """Home page"""
     return render(request, 'algs_site/index.html')
 
-def puzzle_list(request):
+def puzzle(request):
     """List stored puzzles"""
-    puzzles = Puzzle.objects.order_by('name')
-    context = {'puzzles': puzzles}
-    return render(request, 'algs_site/puzzle_list.html', context)
+    puzzle_list = Puzzle.objects.order_by('name')
+    context = {'puzzle_list': puzzle_list}
+    return render(request, 'algs_site/puzzle.html', context)
 
-def algorithm_sets(request, puzzle_name):
+def algorithm_set(request, puzzle_name):
     """List algorithm sets for a given puzzle"""
-    puzzle = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_sets_list = AlgorithmSet.objects.filter(Q(puzzle=puzzle)).order_by('-name')
+    puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
+    algorithm_set_list = AlgorithmSet.objects.filter(Q(puzzle=puzzle_object)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
-        'algorithm_sets': algorithm_sets_list}
+        'algorithm_set_list': algorithm_set_list}
     return render(request, 'algs_site/algorithm_sets.html', context)
 
-def algorithm_set(request, puzzle_name, algorithm_set_name):
+def algorithm_list(request, puzzle_name, algorithm_set_name):
     """List algorithms sets for a given get"""
-    puzzle = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_list = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle)
+    puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
+    algorithm_set_list = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
     algorithm_list = Algorithm.objects.filter(Q(algorithm_set=algorithm_set_list)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_name': algorithm_set_name,
         'algorithms': algorithm_list}
-    return render(request, 'algs_site/algorithm_set.html', context)
+    return render(request, 'algs_site/algorithm_set_single.html', context)
 
 def new_algorithm(request):
     """Upload a new algorithm"""

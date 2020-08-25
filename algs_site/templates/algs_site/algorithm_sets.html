@@ -4,22 +4,22 @@
 Algorithm sets for {{puzzle_name}}<br>
 
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Image</th>
-        <th scope="col">Comments</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for algorithm_set in algorithm_sets %}
-            <tr>
-                <td>{{algorithm_set.name}}</td>
-                <td><img src="{{algorithm_set.image.url}}" width="100px" height="100px" alt={{algorithm_set.alt_text}}></td>
-                <td>{{algorithm_set.comments}}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for algorithm_set in algorithm_set_list %}
+    <tr>
+      <td>{{algorithm_set.name}}</td>
+      <td><img src="{{algorithm_set.image.url}}" width="100px" height="100px" alt={{algorithm_set.alt_text}}></td>
+      <td>{{algorithm_set.comments}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock content %}
