@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-        {% for algorithm in algorithms %}
+        {% for algorithm in algorithm_list_object %}
             <tr>
                 <td>{{algorithm.name}}</td>
                 <td><img src="{{algorithm.image.url}}" width="100px" height="100px" alt={{algorithm.alt_text}}></td>

@@ -27,17 +27,17 @@ def algorithm_set(request, puzzle_name):
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_list': algorithm_set_list}
-    return render(request, 'algs_site/algorithm_sets.html', context)
+    return render(request, 'algs_site/algorithm_set.html', context)
 
 def algorithm_list(request, puzzle_name, algorithm_set_name):
     """List algorithms sets for a given get"""
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
     algorithm_set_list = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
-    algorithm_list = Algorithm.objects.filter(Q(algorithm_set=algorithm_set_list)).order_by('-name')
+    algorithm_list_object = Algorithm.objects.filter(Q(algorithm_set=algorithm_set_list)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_name': algorithm_set_name,
-        'algorithms': algorithm_list}
+        'algorithm_list_object': algorithm_list_object}
     return render(request, 'algs_site/algorithm_set_single.html', context)
 
 def new_algorithm(request):
