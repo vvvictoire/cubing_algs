@@ -16,7 +16,7 @@ urlpatterns = [
     path('', views.puzzle, name='puzzle'),
     # alg sets for a given puzzle
     path('alg/<str:puzzle_name>/', views.algorithm_set, name='algorithm_set'),
-    # algorithms for a give alg set
+    # algorithms for a given alg set
     path('alg/<str:puzzle_name>/<str:algorithm_set_name>',
          views.algorithm_list,
          name='algorithm_list'),

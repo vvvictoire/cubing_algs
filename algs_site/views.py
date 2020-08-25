@@ -6,7 +6,7 @@ import requests
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from .models import Puzzle, AlgorithmSet, Algorithm
+from .models import Puzzle, AlgorithmSet, Algorithm, Case
 
 # Create your views here.
 
@@ -28,6 +28,17 @@ def algorithm_set(request, puzzle_name):
         'puzzle_name': puzzle_name,
         'algorithm_set_list': algorithm_set_list}
     return render(request, 'algs_site/algorithm_set.html', context)
+
+def case(request, puzzle_name, algorithm_set_name):
+    """List cases for a given puzzle and algorithm set"""
+    puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
+    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name)
+    case_list = Case.objects.filter(Q(puzzle=puzzle_object) & Q(algorithm_set=algorithm_set_object))
+    context = {
+        'puzzle_name': puzzle_name,
+        'algorithm_set_name': algorithm_set_name,
+        'case_list': case_list
+    }
 
 def algorithm_list(request, puzzle_name, algorithm_set_name):
     """List algorithms sets for a given get"""
