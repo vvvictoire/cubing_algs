@@ -19,7 +19,10 @@ urlpatterns = [
     # cases for a given alg set
     path('alg/<str:puzzle_name>/<str:algorithm_set_name>', views.case, name='case'),
     # lists algorithms for a given case
-    path('alg/<str:puzzle_name>/<str:algorithm_set_name>/<str:case_name>', views.algorithm_list, name='algorithm_list'),
+    path(
+        'alg/<str:puzzle_name>/<str:algorithm_set_name>/<str:case_name>',
+        views.algorithm_list,
+        name='algorithm_list'),
     path('new_algorithm', views.new_algorithm, name='new_algorithm'),
 
 ]

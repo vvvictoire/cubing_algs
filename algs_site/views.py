@@ -1,4 +1,4 @@
-"""Web application views"""
+"""Web application views. Gets called by the urls in urls.py"""
 
 import json
 import requests
@@ -11,7 +11,7 @@ from .models import Puzzle, AlgorithmSet, Algorithm, Case
 # Create your views here.
 
 def index(request):
-    """Home page"""
+    """Home page, shouldn’t be called honestly."""
     return render(request, 'algs_site/index.html')
 
 def puzzle(request):
@@ -22,8 +22,10 @@ def puzzle(request):
 
 def algorithm_set(request, puzzle_name):
     """List algorithm sets for a given puzzle"""
+    # Get the Puzzle object corresponding to the selected puzzle
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_list = AlgorithmSet.objects.filter(Q(puzzle=puzzle_object)).order_by('-name')
+    # Get the AlgorithmSets corresponding to the selected puzzle
+    algorithm_set_list = AlgorithmSet.objects.filter(Q(puzzle=puzzle_object)).order_by('name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_list': algorithm_set_list}
@@ -31,9 +33,16 @@ def algorithm_set(request, puzzle_name):
 
 def case(request, puzzle_name, algorithm_set_name):
     """List cases for a given puzzle and algorithm set"""
+    # Get the Puzzle object corresponding to the selected puzzle
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
-    case_list = Case.objects.filter(Q(puzzle=puzzle_object) & Q(algorithm_sets=algorithm_set_object)).order_by('-name')
+    # Get the AlgorithmSet object corresponding to the selected puzzle AND given name
+    algorithm_set_object = get_object_or_404(
+        AlgorithmSet,
+        name=algorithm_set_name,
+        puzzle=puzzle_object)
+    # Get the Cases corresponding to the puzzle AND the algorithm_set
+    case_list = Case.objects.filter(
+        Q(puzzle=puzzle_object) & Q(algorithm_sets=algorithm_set_object)).order_by('name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_name': algorithm_set_name,
@@ -42,9 +51,20 @@ def case(request, puzzle_name, algorithm_set_name):
     return render(request, 'algs_site/case.html', context)
 
 def algorithm_list(request, puzzle_name, algorithm_set_name, case_name):
+    """List algorithms for a given puzzle, algorithm set and case"""
+    # Get the Puzzle object corresponding to the selected puzzle
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
-    case_object = get_object_or_404(Case, name=case_name, puzzle=puzzle_object, algorithm_sets=algorithm_set_object)
+    # Get the AlgorithmSet object corresponding to the selected puzzle AND given name
+    algorithm_set_object = get_object_or_404(
+        AlgorithmSet,
+        name=algorithm_set_name,
+        puzzle=puzzle_object)
+    # Get the Case object corresponding to the selected puzzle AND AlgorithmSet AND given case
+    case_object = get_object_or_404(
+        Case, name=case_name,
+        puzzle=puzzle_object,
+        algorithm_sets=algorithm_set_object)
+    # Get the Algorithms corresponding to the selected Case
     algorithms = Algorithm.objects.filter(Q(case=case_object)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
@@ -94,9 +114,10 @@ def oauth(request):
     #   "updated_at": "2020-08-01T00:46:09.000Z",
     #   "teams": [ ],
     #   "avatar": {
-    #       "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2000FOOB42/avatar.jpg",
-    #       "thumb_url": "https://www.worldcubeassociation.org/uploads/user/avatar/2000FOOB42/avatar_thumb.jpg",
-    #       "is_default": false
+    #     "url": "https://www.worldcubeassociation.org/uploads/user/avatar/2000FOOB42/avatar.jpg",
+    #     "thumb_url":
+    #       "https://www.worldcubeassociation.org/uploads/user/avatar/2000FOOB42/avatar_thumb.jpg",
+    #     "is_default": false
     #   }
     # } }
     return HttpResponse('Logged in with ' + details_response['me']['wca_id'])
