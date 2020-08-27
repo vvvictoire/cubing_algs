@@ -5,8 +5,10 @@ Puzzle list:<br>
 
 {% for puzzle in puzzle_list %}
 <a href="{% url 'algs_site:algorithm_set' puzzle.name %}">
-    <img src="{{puzzle.image.url}}" width="100px" height="100px" alt={{puzzle.alt_text}}><br>
-    {{puzzle.name}}
+  {% if puzzle.image %}
+  <img src="{{puzzle.image.url}}" width="100px" height="100px" alt={{puzzle.alt_text}}><br>
+  {% endif %}
+  {{puzzle.name}}
 </a><br>
 {% endfor %}
 

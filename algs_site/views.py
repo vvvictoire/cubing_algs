@@ -32,24 +32,27 @@ def algorithm_set(request, puzzle_name):
 def case(request, puzzle_name, algorithm_set_name):
     """List cases for a given puzzle and algorithm set"""
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name)
-    case_list = Case.objects.filter(Q(puzzle=puzzle_object) & Q(algorithm_set=algorithm_set_object))
+    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
+    case_list = Case.objects.filter(Q(puzzle=puzzle_object) & Q(algorithm_sets=algorithm_set_object)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_name': algorithm_set_name,
         'case_list': case_list
     }
+    return render(request, 'algs_site/case.html', context)
 
-def algorithm_list(request, puzzle_name, algorithm_set_name):
-    """List algorithms sets for a given get"""
+def algorithm_list(request, puzzle_name, algorithm_set_name, case_name):
     puzzle_object = get_object_or_404(Puzzle, name=puzzle_name)
-    algorithm_set_list = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
-    algorithm_list_object = Algorithm.objects.filter(Q(algorithm_set=algorithm_set_list)).order_by('-name')
+    algorithm_set_object = get_object_or_404(AlgorithmSet, name=algorithm_set_name, puzzle=puzzle_object)
+    case_object = get_object_or_404(Case, name=case_name, puzzle=puzzle_object, algorithm_sets=algorithm_set_object)
+    algorithms = Algorithm.objects.filter(Q(case=case_object)).order_by('-name')
     context = {
         'puzzle_name': puzzle_name,
         'algorithm_set_name': algorithm_set_name,
-        'algorithm_list_object': algorithm_list_object}
-    return render(request, 'algs_site/algorithm_set_single.html', context)
+        'case_name': case_name,
+        'algorithms': algorithms
+    }
+    return render(request, 'algs_site/algorithm_list.html', context)
 
 def new_algorithm(request):
     """Upload a new algorithm"""

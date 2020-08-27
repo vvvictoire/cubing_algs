@@ -1,0 +1,29 @@
+{% extends "algs_site/base.html" %}
+{% block content %}
+
+Algorithms for the {{case_name}} case for {{puzzle_name}} {{algorithm_set_name}}<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for algorithm in algorithms %}
+    <tr>
+      <td>{{algorithm.name}}</td>
+      <td>
+        {% if algorithm.image %}
+        <img src="{{algorithm.image.url}}" width="100px" height="100px" alt={{algorithm.alt_text}}>
+        {% endif %}
+      </td>
+      <td>{{algorithm.comments}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

@@ -14,8 +14,12 @@ Algorithm sets for {{puzzle_name}}<br>
   <tbody>
     {% for algorithm_set in algorithm_set_list %}
     <tr>
-      <td>{{algorithm_set.name}}</td>
-      <td><img src="{{algorithm_set.image.url}}" width="100px" height="100px" alt={{algorithm_set.alt_text}}></td>
+      <td><a href="{% url 'algs_site:case' puzzle_name algorithm_set.name %}">{{algorithm_set.name}}</a></td>
+      <td>
+        {% if algorithm_set.image %}
+        <img src="{{algorithm_set.image.url}}" width="100px" height="100px" alt={{algorithm_set.alt_text}}>
+        {% endif %}
+      </td>
       <td>{{algorithm_set.comments}}</td>
     </tr>
     {% endfor %}

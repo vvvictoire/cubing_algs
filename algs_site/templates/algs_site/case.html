@@ -1,0 +1,29 @@
+{% extends "algs_site/base.html" %}
+{% block content %}
+
+Cases for {{puzzle_name}} {{algorithm_set_name}}<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for case in case_list %}
+    <tr>
+      <td><a href="{% url 'algs_site:algorithm_list' puzzle_name algorithm_set_name case.name %}">{{case.name}}</a></td>
+      <td>
+        {% if case.image %}
+        <img src="{{case.image.url}}" width="100px" height="100px" alt={{case.alt_text}}>
+        {% endif %}
+      </td>
+      <td>{{case.comments}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
