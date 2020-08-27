@@ -8,8 +8,8 @@ from . import views
 
 app_name = 'algs_site'
 urlpatterns = [
-    # index
-    path('alg', views.index, name='index'),
+    # index, redirects to the puzzle list
+    path('', views.puzzle, name='index'),
     # oauth
     path('oauth', views.oauth, name='oauth'),
     # main page, list puzzles
